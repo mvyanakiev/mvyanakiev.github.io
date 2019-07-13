@@ -8,6 +8,9 @@
 */
 /* styles.css */
 /* ======= Base ======= */
+
+@import url(https://use.fontawesome.com/releases/v5.8.2/css/all.css);
+
 body {
   font-family: 'Roboto', sans-serif;
   color: #545E6C;
@@ -124,7 +127,7 @@ p {
 .sidebar-wrapper .education-container .meta {
   color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   margin-top: 0;
 }
 .sidebar-wrapper .education-container .time {
@@ -223,7 +226,7 @@ p {
   font-size: 16px;
   font-weight: 400;
   margin-top: 0;
-  margin-bottom: 5px;
+  margin-bottom: 1em;
 }
 .main-wrapper .projects-section .intro {
   margin-bottom: 30px;
@@ -260,6 +263,24 @@ p {
 .footer .fa-heart {
   color: #fb866a;
 }
+
+
+/* added by Milko */
+
+.details ul {
+  margin-top: 0;
+  margin-bottom: 10px;
+  list-style: none outside;
+}
+
+.details ul li:before{
+  font-family: "Font Awesome 5 Free";
+  content: '\f00c';
+  font-weight: 900;
+  margin-right: 0.6em;
+}
+
+
 /* Extra small devices (phones, less than 768px) */
 @media (max-width: 767px) {
   .sidebar-wrapper {
