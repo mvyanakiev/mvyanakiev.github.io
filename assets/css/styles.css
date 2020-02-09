@@ -320,6 +320,7 @@ p {
     margin-top: 0;
     margin-bottom: 10px;
     list-style: none outside;
+    padding-inline-start: 20px;
 }
 
 .details ul li:before {
