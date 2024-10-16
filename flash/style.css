@@ -15,6 +15,11 @@ body {
     width: 100%;
 }
 
+label, select {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
 #flashcardContainer {
     margin-top: 20px;
     display: flex;
@@ -66,7 +71,7 @@ button:disabled {
         max-width: 300px;
         padding: 10px;
     }
-    
+
     button {
         font-size: 14px;
         padding: 8px 16px;
