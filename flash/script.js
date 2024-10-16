@@ -2,7 +2,6 @@ let flashcards = [];
 let currentIndex = 0;
 let showingAnswer = false;
 
-// Зареждане на флаш карти от GitHub (замени този URL с истинския линк към суровия файл в твоя репозитори)
 const flashcardsURL = 'https://raw.githubusercontent.com/mvyanakiev/mvyanakiev.github.io/refs/heads/master/flash/flashcards.txt';
 
 window.onload = function() {
