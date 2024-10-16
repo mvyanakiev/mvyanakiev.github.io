@@ -3,10 +3,10 @@ let currentIndex = 0;
 let showingAnswer = false;
 
 // Зареждане на флаш карти от GitHub (замени този URL с истинския линк към суровия файл в твоя репозитори)
-// const flashcardsURL = 'https://raw.githubusercontent.com/username/repository/branch/flashcards.txt';
+const flashcardsURL = 'https://raw.githubusercontent.com/mvyanakiev/mvyanakiev.github.io/refs/heads/master/flash/flashcards.txt';
 
 window.onload = function() {
-    fetch('flashcards.txt')
+    fetch(flashcardsURL)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Грешка при зареждане на файла.');
@@ -28,7 +28,7 @@ function processFlashcards(content) {
         const [question, answer] = pair.split('\n');
         return { question, answer };
     });
-    
+
     currentIndex = 0; // Започваме от първата карта
     showFlashcard();
     updateButtons();
@@ -69,4 +69,5 @@ function showNextCard() {
 
 function updateButtons() {
     document.getElementById('prevBtn').disabled = currentIndex === 0;
-    document
+    document.getElementById('nextBtn').disabled = currentIndex === flashcards.length - 1;
+}
