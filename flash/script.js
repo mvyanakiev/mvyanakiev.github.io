@@ -28,7 +28,8 @@ function loadFlashcards(url) {
             return response.text();
         })
         .then(data => {
-            if (url.content('flashcards')) {
+
+            if (url.indexOf('flashcards') > -1) {
                 processFlashcards(data, true);
             } else {
                 processFlashcards(data, false);
@@ -40,7 +41,7 @@ function loadFlashcards(url) {
 }
 
 function processFlashcards(content, isFlashcards) {
-    const pairs = content.trim().split('\n\n'); // Разделяме по празен ред
+    const pairs = content.trim().split('\n\n');
 
     if (isFlashcards) pairs.reverse();
 
@@ -79,6 +80,10 @@ function showPreviousCard() {
         currentIndex--;
         showFlashcard();
         updateButtons();
+    } else {
+        currentIndex = flashcards.length - 1;
+        showFlashcard();
+        updateButtons();
     }
 }
 
@@ -87,7 +92,10 @@ function showNextCard() {
         currentIndex++;
         showFlashcard();
         updateButtons();
-    }
+    } else {
+        currentIndex = 0;
+        showFlashcard();
+        updateButtons();    }
 }
 
 function updateButtons() {
