@@ -10,13 +10,15 @@ const flashcardLists = {
     'list5': 'https://raw.githubusercontent.com/mvyanakiev/mvyanakiev.github.io/refs/heads/master/flash/cards/modes.txt'
 };
 
+// Event listener за избиране на списък с карти
 document.getElementById('flashcardList').addEventListener('change', function() {
     const selectedList = this.value;
     if (selectedList) {
-        loadFlashcards(flashcardLists[selectedList], selectedList === 'list1'); // Предаваме true, ако списъкът е flashcards (list1)
+        loadFlashcards(flashcardLists[selectedList], selectedList === 'list1'); // Проверяваме дали списъкът е "flashcards"
     }
 });
 
+// Зареждане на флаш карти от избрания URL
 function loadFlashcards(url, shouldReverse) {
     fetch(url)
         .then(response => {
@@ -31,11 +33,12 @@ function loadFlashcards(url, shouldReverse) {
         .catch(error => console.error('Грешка при зареждане на файла:', error));
 }
 
+// Обработка на картите (и обръщане на реда, ако е необходимо)
 function processFlashcards(content, shouldReverse) {
     const pairs = content.trim().split('\n\n');
 
     if (shouldReverse) {
-        pairs.reverse(); // Обръщаме реда, ако списъкът се казва flashcards
+        pairs.reverse(); // Обръщане на реда, ако списъкът е "flashcards"
     }
 
     flashcards = pairs.map(pair => {
@@ -43,16 +46,18 @@ function processFlashcards(content, shouldReverse) {
         return { question, answer };
     });
 
-    currentIndex = 0;
+    currentIndex = 0; // Започваме от първата карта
     showFlashcard();
 }
 
+// Показване на текущата карта
 function showFlashcard() {
     const flashcardDiv = document.getElementById('flashcard');
     const currentFlashcard = flashcards[currentIndex];
-    showingAnswer = false;
+    showingAnswer = false; // Започваме с въпроса
     flashcardDiv.textContent = currentFlashcard.question;
 
+    // При клик върху картата показваме отговор/въпрос
     flashcardDiv.onclick = function() {
         if (!showingAnswer) {
             flashcardDiv.textContent = currentFlashcard.answer;
@@ -64,15 +69,18 @@ function showFlashcard() {
     };
 }
 
+// Event listeners за бутоните "Предишна" и "Следваща"
 document.getElementById('prevBtn').addEventListener('click', showPreviousCard);
 document.getElementById('nextBtn').addEventListener('click', showNextCard);
 
+// Показване на предишната карта
 function showPreviousCard() {
-    currentIndex = (currentIndex > 0) ? currentIndex - 1 : flashcards.length - 1;
+    currentIndex = (currentIndex > 0) ? currentIndex - 1 : flashcards.length - 1; // Кръгово преминаване
     showFlashcard();
 }
 
+// Показване на следващата карта
 function showNextCard() {
-    currentIndex = (currentIndex < flashcards.length - 1) ? currentIndex + 1 : 0;
+    currentIndex = (currentIndex < flashcards.length - 1) ? currentIndex + 1 : 0; // Кръгово преминаване
     showFlashcard();
 }
