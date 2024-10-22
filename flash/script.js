@@ -76,7 +76,7 @@ function showPreviousCard() {
         showFlashcard();
 //        updateButtons();
     } else {
-        currentIndex === flashcards.length - 1;
+        currentIndex = flashcards.length - 1;
         showFlashcard();
 //        updateButtons();
     }
@@ -88,9 +88,9 @@ function showNextCard() {
         showFlashcard();
 //        updateButtons();
     } else {
-        currentIndex === 0;
+        currentIndex = 0;
         showFlashcard();
-//        updateButtons();
+    //    updateButtons();
         }
 }
 
