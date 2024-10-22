@@ -13,11 +13,11 @@ const flashcardLists = {
 document.getElementById('flashcardList').addEventListener('change', function() {
     const selectedList = this.value;
     if (selectedList) {
-        loadFlashcards(flashcardLists[selectedList]);
+        loadFlashcards(flashcardLists[selectedList], selectedList === 'list1'); // Предаваме true, ако списъкът е flashcards (list1)
     }
 });
 
-function loadFlashcards(url) {
+function loadFlashcards(url, shouldReverse) {
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -26,13 +26,17 @@ function loadFlashcards(url) {
             return response.text();
         })
         .then(data => {
-            processFlashcards(data);
+            processFlashcards(data, shouldReverse);
         })
         .catch(error => console.error('Грешка при зареждане на файла:', error));
 }
 
-function processFlashcards(content) {
+function processFlashcards(content, shouldReverse) {
     const pairs = content.trim().split('\n\n');
+
+    if (shouldReverse) {
+        pairs.reverse(); // Обръщаме реда, ако списъкът се казва flashcards
+    }
 
     flashcards = pairs.map(pair => {
         const [question, answer] = pair.split('\n');
