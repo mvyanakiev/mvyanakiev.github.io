@@ -17,8 +17,6 @@ document.getElementById('flashcardList').addEventListener('change', function() {
     }
 });
 
-
-
 function loadFlashcards(url) {
     fetch(url)
         .then(response => {
@@ -28,14 +26,11 @@ function loadFlashcards(url) {
             return response.text();
         })
         .then(data => {
-
             if (url.indexOf('flashcards') > -1) {
                 processFlashcards(data, true);
             } else {
                 processFlashcards(data, false);
             }
-
-            
         })
         .catch(error => console.error('Грешка при зареждане на файла:', error));
 }
@@ -52,7 +47,7 @@ function processFlashcards(content, isFlashcards) {
 
     currentIndex = 0;
     showFlashcard();
-    updateButtons();
+//    updateButtons();
 }
 
 function showFlashcard() {
@@ -79,11 +74,11 @@ function showPreviousCard() {
     if (currentIndex > 0) {
         currentIndex--;
         showFlashcard();
-        updateButtons();
+//        updateButtons();
     } else {
-        currentIndex = flashcards.length - 1;
+        currentIndex === flashcards.length - 1;
         showFlashcard();
-        updateButtons();
+//        updateButtons();
     }
 }
 
@@ -91,11 +86,12 @@ function showNextCard() {
     if (currentIndex < flashcards.length - 1) {
         currentIndex++;
         showFlashcard();
-        updateButtons();
+//        updateButtons();
     } else {
-        currentIndex = 0;
+        currentIndex === 0;
         showFlashcard();
-        updateButtons();    }
+//        updateButtons();
+        }
 }
 
 function updateButtons() {
