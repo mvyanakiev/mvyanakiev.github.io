@@ -28,13 +28,22 @@ function loadFlashcards(url) {
             return response.text();
         })
         .then(data => {
-            processFlashcards(data);
+            if (url.content('flashcards')) {
+                processFlashcards(data, true);
+            } else {
+                processFlashcards(data, false);
+            }
+
+            
         })
         .catch(error => console.error('Грешка при зареждане на файла:', error));
 }
 
-function processFlashcards(content) {
+function processFlashcards(content, isFlashcards) {
     const pairs = content.trim().split('\n\n'); // Разделяме по празен ред
+
+    if (isFlashcards) pairs.reverse();
+
     flashcards = pairs.map(pair => {
         const [question, answer] = pair.split('\n');
         return { question, answer };
