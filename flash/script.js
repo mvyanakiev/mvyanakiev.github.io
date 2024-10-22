@@ -26,19 +26,13 @@ function loadFlashcards(url) {
             return response.text();
         })
         .then(data => {
-            if (url.indexOf('flashcards') > -1) {
-                processFlashcards(data, true);
-            } else {
-                processFlashcards(data, false);
-            }
+            processFlashcards(data);
         })
         .catch(error => console.error('Грешка при зареждане на файла:', error));
 }
 
-function processFlashcards(content, isFlashcards) {
+function processFlashcards(content) {
     const pairs = content.trim().split('\n\n');
-
-    if (isFlashcards) pairs.reverse();
 
     flashcards = pairs.map(pair => {
         const [question, answer] = pair.split('\n');
@@ -47,7 +41,6 @@ function processFlashcards(content, isFlashcards) {
 
     currentIndex = 0;
     showFlashcard();
-    updateButtons();
 }
 
 function showFlashcard() {
@@ -71,30 +64,11 @@ document.getElementById('prevBtn').addEventListener('click', showPreviousCard);
 document.getElementById('nextBtn').addEventListener('click', showNextCard);
 
 function showPreviousCard() {
-    if (currentIndex > 0) {
-        currentIndex--;
-        showFlashcard();
-        updateButtons();
-    } else {
-        currentIndex = flashcards.length - 1;
-        showFlashcard();
-        updateButtons();
-    }
+    currentIndex = (currentIndex > 0) ? currentIndex - 1 : flashcards.length - 1;
+    showFlashcard();
 }
 
 function showNextCard() {
-    if (currentIndex < flashcards.length - 1) {
-        currentIndex++;
-        showFlashcard();
-        updateButtons();
-    } else {
-        currentIndex = 0;
-        showFlashcard();
-        updateButtons();
-        }
-}
-
-function updateButtons() {
-    document.getElementById('prevBtn').disabled = currentIndex === 0;
-    document.getElementById('nextBtn').disabled = currentIndex === flashcards.length - 1;
+    currentIndex = (currentIndex < flashcards.length - 1) ? currentIndex + 1 : 0;
+    showFlashcard();
 }
